@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"github.com/SvetlanaGrin/AvitoTest"
-	"github.com/SvetlanaGrin/AvitoTest/configs"
 	"github.com/SvetlanaGrin/AvitoTest/pkg/controller"
 	"github.com/SvetlanaGrin/AvitoTest/pkg/repository"
 	"github.com/SvetlanaGrin/AvitoTest/pkg/service"
@@ -18,7 +17,7 @@ import (
 
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
-	if err := configs.InitConfig(); err != nil {
+	if err := InitConfig(); err != nil {
 		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
 
@@ -62,4 +61,11 @@ func main() {
 		logrus.Errorf("error occured on db connection close: %s", err.Error())
 	}
 
+}
+
+func InitConfig() error {
+	viper.AddConfigPath("configs")
+	viper.SetConfigName("config")
+	viper.SetConfigType("yml")
+	return viper.ReadInConfig()
 }
