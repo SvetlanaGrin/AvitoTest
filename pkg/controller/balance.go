@@ -6,7 +6,7 @@ import (
 )
 
 func (h *Controllers) GetById(c *gin.Context) {
-	userid, err := getUserId(c)
+	var userid, err = getUserId(c)
 	if err != nil {
 		return
 	}
