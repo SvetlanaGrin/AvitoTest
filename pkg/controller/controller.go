@@ -23,5 +23,12 @@ func (h *Controllers) InitRoutes() *gin.Engine {
 		auth.POST("/sign-in", h.signIn)
 	}
 
+	api := router.Group("/api", h.userIdentity)
+	{
+		balance := api.Group("/balance")
+		{
+			balance.GET("/:id", h.GetById)
+		}
+	}
 	return router
 }

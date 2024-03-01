@@ -12,6 +12,7 @@ import (
 	"github.com/spf13/viper"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 )
 
@@ -21,7 +22,7 @@ func main() {
 		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
 
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load(filepath.Join("C://Users/user/GolandProjects/AvitoTest/", ".env")); err != nil {
 		logrus.Fatalf("error loading env variables: %s", err.Error())
 	}
 	db, err := repository.NewPostgresDB(repository.Config{
@@ -64,7 +65,7 @@ func main() {
 }
 
 func InitConfig() error {
-	viper.AddConfigPath("configs")
+	viper.AddConfigPath("C://Users/user/GolandProjects/AvitoTest/configs")
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
 	return viper.ReadInConfig()
